@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>House Price Prediction</title>
+
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    linear-gradient(
+    135deg,
+    #667eea,
+    #764ba2
+    );
+
+}
+
+
+
+.container{
+
+    width:420px;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:25px;
+
+
+    box-shadow:
+    0 20px 50px
+    rgba(0,0,0,.4);
+
+
+    animation:show .7s ease;
+
+}
+
+
+
+@keyframes show{
+
+from{
+
+opacity:0;
+transform:translateY(-50px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+
+
+
+h1{
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+    color:#333;
+
+}
+
+
+
+label{
+
+    font-weight:bold;
+
+    display:block;
+
+    margin-top:15px;
+
+}
+
+
+
+input{
+
+    width:100%;
+
+    padding:12px;
+
+    margin-top:8px;
+
+    border-radius:10px;
+
+    border:1px solid #aaa;
+
+    font-size:16px;
+
+}
+
+
+
+button{
+
+    width:100%;
+
+    padding:15px;
+
+    margin-top:25px;
+
+    border:none;
+
+    border-radius:20px;
+
+    background:#667eea;
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+
+button:hover{
+
+    background:#764ba2;
+
+    transform:scale(1.05);
+
+}
+
+
+
+.result{
+
+    margin-top:25px;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    background:#f1f1f1;
+
+    text-align:center;
+
+    animation:fade .5s ease;
+
+}
+
+
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+}
+
+to{
+
+opacity:1;
+
+}
+
+}
+
+
+
+.price{
+
+    color:#00c853;
+
+    font-size:30px;
+
+    font-weight:bold;
+
+}
+
+
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+
+<div class="container">
+
+
+<h1>🏠 House Price Predictor</h1>
+
+
+
+<label>Square Footage</label>
+
+<input 
+type="number"
+id="sqft"
+placeholder="Enter square feet">
+
+
+
+
+<label>Bedrooms</label>
+
+<input 
+type="number"
+id="bedrooms"
+placeholder="Enter number of bedrooms">
+
+
+
+
+<label>Bathrooms</label>
+
+<input 
+type="number"
+id="bathrooms"
+placeholder="Enter number of bathrooms">
+
+
+
+
+<button onclick="predictPrice()">
+
+Predict Price
+
+</button>
+
+
+
+
+<div id="output"></div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<script>
+
+
+
+// Linear Regression Formula
+//
+// price =
+// intercept
+// + sqft * coefficient
+// + bedrooms * coefficient
+// + bathrooms * coefficient
+
+
+
+function predictPrice(){
+
+
+
+let sqft =
+parseFloat(
+document.getElementById("sqft").value
+);
+
+
+
+let bedrooms =
+parseFloat(
+document.getElementById("bedrooms").value
+);
+
+
+
+let bathrooms =
+parseFloat(
+document.getElementById("bathrooms").value
+);
+
+
+
+
+// Validation
+
+
+if(
+
+isNaN(sqft) ||
+
+isNaN(bedrooms) ||
+
+isNaN(bathrooms)
+
+){
+
+
+alert("Please enter all values");
+
+return;
+
+}
+
+
+
+
+
+// Linear Regression Model
+// Example coefficients
+
+
+
+let intercept = 50000;
+
+let sqftCoef = 300;
+
+let bedroomCoef = 10000;
+
+let bathroomCoef = 15000;
+
+
+
+
+
+// Prediction Formula
+
+
+let predictedPrice =
+
+intercept
+
++
+
+(sqft * sqftCoef)
+
++
+
+(bedrooms * bedroomCoef)
+
++
+
+(bathrooms * bathroomCoef);
+
+
+
+
+
+showResult(predictedPrice);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+function showResult(price){
+
+
+
+document.getElementById("output")
+.innerHTML =
+
+`
+
+<div class="result">
+
+
+<h2>Predicted House Price</h2>
+
+
+<p class="price">
+
+$${price.toLocaleString()}
+
+</p>
+
+
+
+<p>
+
+Prediction generated using
+Linear Regression Model
+
+</p>
+
+
+</div>
+
+`;
+
+
+
+}
+
+
+
+</script>
+
+
+
+</body>
+
+</html>
